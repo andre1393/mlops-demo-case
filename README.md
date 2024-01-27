@@ -13,7 +13,7 @@ python code that loads the data, the model, runs the predictions and save them. 
 The batch pipeline runs in a docker container and expects a yaml file to set the parameters of the pipeline
 
 ### use_case
-This is an example of use case for this batch predictor. It basically trains a very simple model based on (Brazilian Credit Card Spending)[https://www.kaggle.com/datasets/sufyant/brazilian-real-bank-dataset] dataset from Kaggle. After training the model, log the trained model to MLFlow to be used later by the batch prediction pipeline. The whole process is wrapped in a docker container for convenience.
+This is an example of use case for this batch predictor. It basically trains a very simple model based on [Brazilian Credit Card Spending](https://www.kaggle.com/datasets/sufyant/brazilian-real-bank-dataset) dataset from Kaggle. After training the model, log the trained model to MLFlow to be used later by the batch prediction pipeline. The whole process is wrapped in a docker container for convenience.
 
 ### docker-compose
 This docker compose, starts the MLFLow server, runs the training pipeline, and then it runs the batch prediction pipeline
