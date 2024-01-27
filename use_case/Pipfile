@@ -1,0 +1,19 @@
+[[source]]
+url = 'https://pypi.python.org/simple'
+verify_ssl = true
+name = 'pypi'
+
+[requires]
+python_version = '3.9'
+
+[packages]
+pyspark = '3.5.0'
+numpy = '1.26.0'
+mlflow = '2.9.2'
+nbconvert = '*'
+jupyter = '*'
+kaggle = '*'
+ipykernel = '*'
+python-dotenv = '1.0.1'
+
+[dev-packages]

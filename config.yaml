@@ -1,0 +1,18 @@
+model:
+  type: MLFlow
+  params:
+    model_name: example-use-case-decision-tree/latest
+    model_flavor: sklearn
+    params: {}
+data:
+  source:
+    type: local_file_source
+    load_params:
+      format: csv
+      path: data/test_data
+  target:
+    type: local_file_target
+    save_params:
+      format: csv
+      path: data/
+      index: false

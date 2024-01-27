@@ -1,0 +1,53 @@
+services:
+  batch-predictor:
+    build: .
+    networks:
+      - mlflow_network
+    depends_on:
+      mlflow:
+        condition: service_started
+      use-case-training:
+        condition: service_completed_successfully
+    volumes:
+      - ./data:/app/data
+    environment:
+      - MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI
+  use-case-training:
+    build:
+      context: ./use_case
+    environment:
+      - DATASET_PATH=$DATASET_PATH
+      - KAGGLE_USERNAME=$KAGGLE_USERNAME
+      - KAGGLE_KEY=$KAGGLE_KEY
+    env_file: ./use_case/.env
+    networks:
+      - mlflow_network
+    depends_on:
+      - mlflow
+    volumes:
+      - ./data/test_data:/app/data/test_data
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.10.0
+    environment:
+      - BACKEND_STORE_URI=postgresql://mlflow_user:mlflow_password@mlflow_db/mlflow_db
+    ports:
+      - 5001:5001
+    depends_on:
+      - mlflow_db
+    networks:
+      - mlflow_network
+    command: mlflow ui --port 5001 --host 0.0.0.0
+  mlflow_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: mlflow_db
+      POSTGRES_USER: mlflow_user
+      POSTGRES_PASSWORD: mlflow_password
+    networks:
+      - mlflow_network
+
+networks:
+  mlflow_network:
+
+volumes:
+  shared-volume:
